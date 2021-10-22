@@ -1,0 +1,24 @@
+[Creating initial conditions using EOFs and ifort]
+
+1. run the model before computing EOFs
+1-1. create NEWEOF and run_DART
+2. cd 4hajoon_eof_files
+3. edit "vector_3d.m" and run it in Matlab
+4. Using the output printed on the screen, edit "eof.f"
+5. ifort -convert big_endian -assume byterecl eof.f
+   (When using gfortran: gfortran -fconvert=big-endian eof.f)
+6. ./a.out
+6-5. If you see NaN in the output, try to adjust neigen to a smaller value
+7. edit "initial_ens.f"
+8. ifort -convert big_endian -assume byterecl initial_ens.f
+9. ./a.out
+10. edit "initial_ens_dart.m" and run it in Matlab
+
+[Compile DART]
+See /home/hajsong/DART_lanai/DART/models/MITgcm_ocean/work/howto
+
+[Creating filter_ics for DART]
+1. cd 4hajoon_filteric_creation"
+2. cp input.nml to ../run_DART/
+3. edit MakeInitialEnsemble.csh
+4. cp /home/hajsong/DART/models/MITgcm_ocean/trans_pv_sv.f90 ../run_DART

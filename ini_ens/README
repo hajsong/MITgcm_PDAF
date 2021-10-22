@@ -1,0 +1,5 @@
+I was able to follow the steps to create the ensemble members for initial condition.
+However, some of the members seem to have the values outside of the range.
+For example, T becomes lower than -2 degC in some members.
+
+So, it may be better to gather the initial condition from the same date of the long simulation.

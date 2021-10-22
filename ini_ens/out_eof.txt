@@ -1,0 +1,163 @@
+ Moyenne quadratique etat(         120 )   678.253099550442     
+ Moyenne quadratique etat(         119 )   677.063890528097     
+ Moyenne quadratique etat(         118 )   857.203381451222     
+ Moyenne quadratique etat(         117 )   1037.65761834010     
+ Moyenne quadratique etat(         116 )   1024.66630565486     
+ Moyenne quadratique etat(         115 )   846.188439404731     
+ Moyenne quadratique etat(         114 )   573.483434121550     
+ Moyenne quadratique etat(         113 )   560.220802015918     
+ Moyenne quadratique etat(         112 )   740.647425579846     
+ Moyenne quadratique etat(         111 )   893.517985456472     
+ Moyenne quadratique etat(         110 )   931.782813972919     
+ Moyenne quadratique etat(         109 )   784.126274260119     
+ Moyenne quadratique etat(         108 )   630.575158792442     
+ Moyenne quadratique etat(         107 )   629.856339832467     
+ Moyenne quadratique etat(         106 )   809.395713694449     
+ Moyenne quadratique etat(         105 )   989.624799049297     
+ Moyenne quadratique etat(         104 )   976.288982554721     
+ Moyenne quadratique etat(         103 )   798.177397470337     
+ Moyenne quadratique etat(         102 )   526.218211718334     
+ Moyenne quadratique etat(         101 )   514.164016715356     
+ Moyenne quadratique etat(         100 )   694.380794278007     
+ Moyenne quadratique etat(          99 )   846.156178852236     
+ Moyenne quadratique etat(          98 )   883.493227677476     
+ Moyenne quadratique etat(          97 )   734.664651546999     
+ Moyenne quadratique etat(          96 )   580.618552495086     
+ Moyenne quadratique etat(          95 )   580.406003417609     
+ Moyenne quadratique etat(          94 )   759.285664991207     
+ Moyenne quadratique etat(          93 )   938.936102319391     
+ Moyenne quadratique etat(          92 )   925.849038534541     
+ Moyenne quadratique etat(          91 )   749.210399341771     
+ Moyenne quadratique etat(          90 )   478.879828485987     
+ Moyenne quadratique etat(          89 )   468.301915857966     
+ Moyenne quadratique etat(          88 )   648.823515759084     
+ Moyenne quadratique etat(          87 )   799.844049524888     
+ Moyenne quadratique etat(          86 )   836.199843210109     
+ Moyenne quadratique etat(          85 )   686.415757231132     
+ Moyenne quadratique etat(          84 )   531.642264415304     
+ Moyenne quadratique etat(          83 )   532.078417052401     
+ Moyenne quadratique etat(          82 )   710.710877549804     
+ Moyenne quadratique etat(          81 )   890.127976291224     
+ Moyenne quadratique etat(          80 )   877.581118379507     
+ Moyenne quadratique etat(          79 )   703.088765908018     
+ Moyenne quadratique etat(          78 )   435.318350394787     
+ Moyenne quadratique etat(          77 )   426.645186510918     
+ Moyenne quadratique etat(          76 )   608.338292629203     
+ Moyenne quadratique etat(          75 )   758.695854737683     
+ Moyenne quadratique etat(          74 )   794.699488728436     
+ Moyenne quadratique etat(          73 )   644.611914543593     
+ Moyenne quadratique etat(          72 )   490.167821479494     
+ Moyenne quadratique etat(          71 )   492.016011390481     
+ Moyenne quadratique etat(          70 )   670.755451978205     
+ Moyenne quadratique etat(          69 )   850.566345127803     
+ Moyenne quadratique etat(          68 )   839.295999586052     
+ Moyenne quadratique etat(          67 )   668.515095644387     
+ Moyenne quadratique etat(          66 )   403.854260478887     
+ Moyenne quadratique etat(          65 )   397.883225190149     
+ Moyenne quadratique etat(          64 )   581.277416888671     
+ Moyenne quadratique etat(          63 )   731.004145310225     
+ Moyenne quadratique etat(          62 )   766.968390371807     
+ Moyenne quadratique etat(          61 )   617.553394673350     
+ Moyenne quadratique etat(          60 )   463.423971165455     
+ Moyenne quadratique etat(          59 )   466.407503786549     
+ Moyenne quadratique etat(          58 )   645.700753274377     
+ Moyenne quadratique etat(          57 )   826.957830637720     
+ Moyenne quadratique etat(          56 )   818.474260065330     
+ Moyenne quadratique etat(          55 )   650.738011031900     
+ Moyenne quadratique etat(          54 )   392.048105879338     
+ Moyenne quadratique etat(          53 )   390.726251508602     
+ Moyenne quadratique etat(          52 )   577.048266753996     
+ Moyenne quadratique etat(          51 )   728.308389766952     
+ Moyenne quadratique etat(          50 )   766.476946573425     
+ Moyenne quadratique etat(          49 )   617.400276307752     
+ Moyenne quadratique etat(          48 )   462.545498350479     
+ Moyenne quadratique etat(          47 )   467.080082626059     
+ Moyenne quadratique etat(          46 )   648.963414746873     
+ Moyenne quadratique etat(          45 )   833.843147270349     
+ Moyenne quadratique etat(          44 )   830.269035751842     
+ Moyenne quadratique etat(          43 )   666.155497323052     
+ Moyenne quadratique etat(          42 )   417.377462148953     
+ Moyenne quadratique etat(          41 )   425.523130561227     
+ Moyenne quadratique etat(          40 )   617.961875170562     
+ Moyenne quadratique etat(          39 )   775.032402921507     
+ Moyenne quadratique etat(          38 )   816.812977497070     
+ Moyenne quadratique etat(          37 )   665.753549670127     
+ Moyenne quadratique etat(          36 )   512.071319168578     
+ Moyenne quadratique etat(          35 )   520.072939717843     
+ Moyenne quadratique etat(          34 )   710.144129818776     
+ Moyenne quadratique etat(          33 )   902.364985739724     
+ Moyenne quadratique etat(          32 )   907.962125084905     
+ Moyenne quadratique etat(          31 )   756.186287905332     
+ Moyenne quadratique etat(          30 )   524.225786399901     
+ Moyenne quadratique etat(          29 )   547.068478585772     
+ Moyenne quadratique etat(          28 )   751.677590413163     
+ Moyenne quadratique etat(          27 )   924.155825588139     
+ Moyenne quadratique etat(          26 )   981.837661429484     
+ Moyenne quadratique etat(          25 )   841.997969595118     
+ Moyenne quadratique etat(          24 )   701.432216394500     
+ Moyenne quadratique etat(          23 )   739.479346921120     
+ Moyenne quadratique etat(          22 )   960.963855133235     
+ Moyenne quadratique etat(          21 )   1182.39299031021     
+ Moyenne quadratique etat(          20 )   1219.91424889059     
+ Moyenne quadratique etat(          19 )   1094.89740594411     
+ Moyenne quadratique etat(          18 )   896.886838576311     
+ Moyenne quadratique etat(          17 )   930.022573749198     
+ Moyenne quadratique etat(          16 )   1145.27897792444     
+ Moyenne quadratique etat(          15 )   1339.84325457793     
+ Moyenne quadratique etat(          14 )   1423.29275164873     
+ Moyenne quadratique etat(          13 )   1302.85565910878     
+ Moyenne quadratique etat(          12 )   1193.33070575551     
+ Moyenne quadratique etat(          11 )   1286.00737494319     
+ Moyenne quadratique etat(          10 )   1563.64894386229     
+ Moyenne quadratique etat(           9 )   1844.94373352637     
+ Moyenne quadratique etat(           8 )   1988.30706501022     
+ Moyenne quadratique etat(           7 )   2006.19316039903     
+ Moyenne quadratique etat(           6 )   1940.40494281187     
+ Moyenne quadratique etat(           5 )   2206.74848076480     
+ Moyenne quadratique etat(           4 )   2653.65679088109     
+ Moyenne quadratique etat(           3 )   3241.86901026549     
+ Moyenne quadratique etat(           2 )   3780.67588517577     
+ Moyenne quadratique etat(           1 )   4368.17940716726     
+ 
+ Somme des moyennes quadratique    107376.0    
+ 
+ V.p.           1   41047.50      (  0.3822782      0.382278190531854      )
+  6.7524304E-08  iter           21
+ GOOD eigvec=   1.00000034691038     
+ V.p.           2   27977.04      (  0.2605521      0.642830297624578      )
+  9.6344309E-08  iter           19
+ GOOD eigvec=   1.00000010152621     
+ V.p.           3   16506.66      (  0.1537276      0.796557922522107      )
+  1.6531176E-07  iter           13
+ GOOD eigvec=   1.00000004434605     
+ V.p.           4   6940.040      (  6.4633064E-02  0.861190988158069      )
+  1.2204458E-07  iter           13
+ GOOD eigvec=   1.00000005150281     
+ V.p.           5   2927.548      (  2.7264452E-02  0.888455440367366      )
+  4.3996016E-07  iter           20
+ GOOD eigvec=   1.00000000126761     
+ V.p.           6   1956.330      (  1.8219437E-02  0.906674876931070      )
+  5.3626081E-07  iter           57
+ GOOD eigvec=  0.999998389821172     
+ V.p.           7   1786.714      (  1.6639793E-02  0.923314669467548      )
+  6.6974502E-07  iter           65
+ GOOD eigvec=   1.00000158529093     
+ V.p.           8   1597.325      (  1.4876000E-02  0.938190668867146      )
+  7.3519277E-07  iter           25
+ GOOD eigvec=   1.00000024266049     
+ V.p.           9   1079.774      (  1.0056011E-02  0.948246679972835      )
+  5.4589310E-07  iter           24
+ GOOD eigvec=  0.999999381289356     
+ V.p.          10   778.5721      (  7.2508957E-03  0.955497575891870      )
+  9.4702364E-07  iter           38
+ GOOD eigvec=   1.00000573787702     
+ GOOD eigval=   41047.5128689852     
+ GOOD eigval=   27977.0438947668     
+ GOOD eigval=   16506.6557685068     
+ GOOD eigval=   6940.03971140210     
+ GOOD eigval=   2927.54759058690     
+ GOOD eigval=   1956.32688255738     
+ GOOD eigval=   1786.71707105165     
+ GOOD eigval=   1597.32552387292     
+ GOOD eigval=   1079.77361060967     
+ GOOD eigval=   778.576656783681     

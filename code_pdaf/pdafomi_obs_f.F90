@@ -76,7 +76,7 @@ MODULE PDAFomi_obs_f
   REAL, PARAMETER :: pi=3.141592653589793   !< Pi
 
 ! *** Data type to define the full observations by internally shared variables of the module
-  STRUCTURE /obs_f/
+  TYPE obs_f
      ! ---- Mandatory variables to be set in INIT_DIM_OBS ----
      INTEGER :: doassim=0                 !< Whether to assimilate this observation type
      INTEGER :: disttype                  !< Type of distance computation to use for localization
@@ -103,7 +103,7 @@ MODULE PDAFomi_obs_f
      REAL*8, ALLOCATABLE :: ocoord_f(:,:)   !< Coordinates of full observation vector
      REAL*8, ALLOCATABLE :: ivar_obs_f(:)   !< Inverse variance of full observations
      INTEGER, ALLOCATABLE :: id_obs_f_lim(:) !< Indices of domain-relevant full obs. in global vector of obs.
-  END STRUCTURE
+  END TYPE obs_f
 
   INTEGER :: n_obstypes = 0               ! Number of observation types
   INTEGER :: obscnt = 0                   ! current ID of observation type

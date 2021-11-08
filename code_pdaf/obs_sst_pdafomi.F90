@@ -64,7 +64,7 @@
             ONLY: obs_f, obs_l   ! Declaration of observation data types
      IMPLICIT NONE
      SAVE
-!     include "SIZE2.h"
+     include "SIZE2.h"
   ! Variables which are inputs to the module (usually set in init_pdaf)
      LOGICAL :: assim_sst = .TRUE.        !< Whether to assimilate this data type
 
@@ -180,7 +180,6 @@ CONTAINS
     INTEGER, INTENT(in)    :: step       !< Current time step
     INTEGER, INTENT(inout) :: dim_obs    !< Dimension of full observation vector
 
-#include "SIZE2.h"
 ! *** Local variables ***
     INTEGER :: i, j, k                   ! Counters
     INTEGER :: dim_obs_p                 ! Number of process-local observations

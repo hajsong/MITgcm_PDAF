@@ -8,5 +8,6 @@
  forget = 1.0, 
  locweight = 4, 
  local_range = 50000.0, 
+ read_ens = .FALSE.,
  write_ens = .FALSE.,
 /

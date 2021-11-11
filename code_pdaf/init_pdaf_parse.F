@@ -26,7 +26,7 @@ C     !USES:
      &     ONLY: screen, filtertype, subtype, dim_ens,
      &     type_trans, type_sqrt, nsteps_between_obs, rms_obs,
      &     type_forget, forget, 
-     &     locweight, local_range, srange, write_ens
+     &     locweight, local_range, srange, write_ens, read_ens
 
       IMPLICIT NONE
 
@@ -81,6 +81,8 @@ C     Settings for localization in LSEIK/LETKF
 
       handle = 'write_ens'               ! Whether to write ensmeble files
       CALL parse(handle, write_ens)   
+      handle = 'read_ens'               ! Whether to write ensmeble files
+      CALL parse(handle, read_ens)   
 
       
       END SUBROUTINE init_pdaf_parse

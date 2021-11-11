@@ -33,7 +33,7 @@ C     Variables for assimilation
      &     filtertype, subtype, dim_ens, iter_null,
      &     nsteps_between_obs, rms_obs, type_forget, forget, 
      &     locweight, local_range, srange, type_trans, type_sqrt,
-     &     myIter, myThid, MyTime, write_ens,
+     &     myIter, myThid, MyTime, write_ens, read_ens,
      &     off_fields_p, dim_fields_p, nfields, dim_fields
 
       IMPLICIT NONE
@@ -61,7 +61,7 @@ C     Local variables
       REAL    :: timenow           ! Not used in this implementation
 
 C     External subroutines
-      EXTERNAL :: init_ens_pdaf    ! Ensemble initialization
+      EXTERNAL :: init_ens_pdaf_read     ! Ensemble initialization
       EXTERNAL :: next_observation_pdaf, ! Provide time step, model time, 
                                    ! and dimension of next observation
      &     distribute_state_pdaf,  ! Distribute a state vector to model fields
@@ -71,7 +71,7 @@ C     Namelist for PDAF settings
       NAMELIST /pdaf_nml/ screen, filtertype, subtype, 
      &     iter_null, nsteps_between_obs, rms_obs,
      &     type_forget, forget, type_trans, type_sqrt,
-     &     locweight, local_range, srange, write_ens
+     &     locweight, local_range, srange, write_ens, read_ens
 
 
 C     *** Store information from MITgcm to be used in call-back routines ***
@@ -182,6 +182,9 @@ C     *********************************************************************
 C     Forecast length
       nsteps_between_obs = 10   ! Number of time steps between analysis/assimilation steps
 
+C     Whether to read initial ensemble files
+      read_ens = .false.
+
 C     Whether to write full ensemble files
       write_ens = .false.
       
@@ -244,7 +247,7 @@ C     *****************************************************
      &     filter_param_i, 2,
      &     filter_param_r, 2,
      &     COMM_model, COMM_filter, COMM_couple, 
-     &     task_id, n_modeltasks, filterpe, init_ens_pdaf, 
+     &     task_id, n_modeltasks, filterpe, init_ens_pdaf_read, 
      &     screen, status_pdaf)
 
 

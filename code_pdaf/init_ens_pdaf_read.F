@@ -298,7 +298,7 @@ C     Read an initial state for each component if required
 
 C      Or Read pickup files
         ELSEIF ( .NOT.useOffLine .OR. nonlinFreeSurf.GT.0 ) THEN
-         CALL READ_PICKUP_ENS( nIter0, myThid, ensstr )
+         CALL READ_PICKUP( nIter0, myThid )
         ENDIF
        ENDDO
 C     ********************************

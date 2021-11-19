@@ -41,7 +41,7 @@ C     CAlls: PDAF_assimilate_X
 
 C     Local variables
       INTEGER status_pdaf    ! PDAF status flag
-
+      INTEGER localfilter
 C     External subroutines
       EXTERNAL :: collect_state_pdaf, ! Routine to collect a state vector from model fields
 C     &     init_dim_obs_pdaf,   ! Initialize Dimension Of Observation Vector
@@ -71,36 +71,42 @@ C    ! Interface to PDAF-OMI for local and global filters
      &     init_dim_obs_l_pdafomi,  ! Get dimension of obs. vector for local analysis domain
      &     localize_covar_pdafomi   ! Apply localization to covariance matrix in LEnKF
 C-hajoon
-
+C      EXTERNAL :: get_obs_f_pdaf
       
 C     *********************************
 C     *** Call assimilation routine ***
 C     *********************************
+      CALL PDAF_get_localfilter(localfilter)
 
       myIter = myIterLoc
       myThid = myThidLoc
       myTime = myTimeLoc
- 
-      IF (filtertype == 4) THEN
-       CALL PDAFomi_assimilate_lenkf(collect_state_pdaf, 
+
+      IF (localfilter==1) THEN
+       CALL PDAFomi_assimilate_local(collect_state_pdaf,
+     &      distribute_state_pdaf, init_dim_obs_pdafomi, 
+     &      obs_op_pdafomi, prepoststep_ens_pdaf,
+     &      init_n_domains_pdaf, init_dim_l_pdaf,
+     &      init_dim_obs_l_pdafomi, g2l_state_pdaf,
+     &      l2g_state_pdaf, next_observation_pdaf,status_pdaf)
+
+      ELSE
+         IF (filtertype==8) THEN
+            CALL PDAFomi_assimilate_lenkf(collect_state_pdaf, 
      &      distribute_state_pdaf, init_dim_obs_pdafomi, obs_op_pdafomi,
      &      prepoststep_ens_pdaf, localize_covar_pdafomi, 
      &      next_observation_pdaf, status_pdaf)
-      ELSE IF (filtertype == 5) THEN
-       CALL PDAFomi_assimilate_lenkf(collect_state_pdaf, 
-     &      distribute_state_pdaf, init_dim_obs_pdafomi, obs_op_pdafomi,
-     &      prepoststep_ens_pdaf, localize_covar_pdafomi, 
-     &      next_observation_pdaf, status_pdaf)
-      ELSE IF (filtertype == 6) THEN
-       CALL PDAFomi_assimilate_global(collect_state_pdaf, 
+C         ELSE IF (filtertype == 11) THEN
+C            CALL PDAFomi_generate_obs(collect_state_pdaf, 
+C     &      distribute_state_pdaf, init_dim_obs_pdafomi, obs_op_pdafomi,
+C     &      get_obs_f_pdaf, prepoststep_ens_pdaf, 
+C     &      next_observation_pdaf, status_pdaf)
+         ELSE  
+            CALL PDAFomi_assimilate_global(collect_state_pdaf, 
      &      distribute_state_pdaf, init_dim_obs_pdafomi, obs_op_pdafomi,
      &      prepoststep_ens_pdaf, 
      &      next_observation_pdaf, status_pdaf)
-      ELSEIF (filtertype == 7) THEN
-       CALL PDAFomi_assimilate_lenkf(collect_state_pdaf, 
-     &      distribute_state_pdaf, init_dim_obs_pdafomi, obs_op_pdafomi,
-     &      prepoststep_ens_pdaf, localize_covar_pdafomi, 
-     &      next_observation_pdaf, status_pdaf)
+         END IF
       END IF
 
       

@@ -24,9 +24,10 @@ C     !USES:
      &     ONLY: mype_world
       USE mod_assimilation,     ! Variables for assimilation       
      &     ONLY: screen, filtertype, subtype, dim_ens,
-     &     type_trans, type_sqrt, nsteps_between_obs, rms_obs,
+     &     type_trans, type_sqrt, nsteps_between_obs,
      &     type_forget, forget, 
-     &     locweight, local_range, srange, write_ens, read_ens
+     &     locweight, local_range, srange, write_ens, read_ens,
+     &     eta_obsfile
 
       IMPLICIT NONE
 
@@ -46,8 +47,10 @@ C     **********************************
 C     Observation settings
       handle = 'nsteps_between_obs'      ! Time step interval between filter analyses
       CALL parse(handle, nsteps_between_obs)
-      handle = 'rms_obs'                 ! Assumed uniform RMS error of the observations
-      CALL parse(handle, rms_obs)
+C      handle = 'rms_obs'                 ! Assumed uniform RMS error of the observations
+C      CALL parse(handle, rms_obs)
+      handle = 'eta_obsfile'             ! observation file name
+      CALL parse(handle, eta_obsfile)
 
 C     General settings for PDAF
       handle = 'screen'                  ! set verbosity of PDAF

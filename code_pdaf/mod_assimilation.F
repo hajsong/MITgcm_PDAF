@@ -60,7 +60,6 @@ C     Settings for time stepping - available as command line options
 
 C     Settings for observations - available as command line options
       INTEGER :: nsteps_between_obs ! time step interval between assimilation steps
-      REAL*8  :: rms_obs       ! RMS error size for observation generation
       INTEGER :: dim_obs       ! Number of observations
 
 C     General control of PDAF - available as command line options
@@ -123,6 +122,9 @@ C     File input - available as a command line option
       LOGICAL :: read_ens    ! Whether to read ensemble from files
 C     File output - available as a command line option
       LOGICAL :: write_ens   ! Whether to write full ensemble into files
+
+C     Observation file names
+      CHARACTER(len=32) :: eta_obsfile
 
 C     Other variables - _NOT_ available as command line options!
       INTEGER :: iter_null   ! Initial time step

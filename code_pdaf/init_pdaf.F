@@ -31,10 +31,12 @@ C     Parallelization variables fro assimilation
 C     Variables for assimilation
       USE mod_assimilation,  ONLY: dim_state_p, dim_state, screen, 
      &     filtertype, subtype, dim_ens, iter_null,
-     &     nsteps_between_obs, rms_obs, type_forget, forget, 
+     &     nsteps_between_obs, type_forget, forget, 
      &     locweight, local_range, srange, type_trans, type_sqrt,
      &     myIter, myThid, MyTime, write_ens, read_ens,
      &     off_fields_p, dim_fields_p, nfields, dim_fields
+      USE obs_eta_pdafomi, ONLY: assim_eta, rms_obs_eta,
+     &      eta_obsfile
 
       IMPLICIT NONE
 
@@ -69,9 +71,10 @@ C     External subroutines
  
 C     Namelist for PDAF settings
       NAMELIST /pdaf_nml/ screen, filtertype, subtype, 
-     &     iter_null, nsteps_between_obs, rms_obs,
+     &     iter_null, nsteps_between_obs, rms_obs_eta,
      &     type_forget, forget, type_trans, type_sqrt,
-     &     locweight, local_range, srange, write_ens, read_ens
+     &     locweight, local_range, srange, write_ens, read_ens,
+     &     eta_obsfile, assim_eta
 
 
 C     *** Store information from MITgcm to be used in call-back routines ***
@@ -188,9 +191,12 @@ C     Whether to read initial ensemble files
 C     Whether to write full ensemble files
       write_ens = .false.
       
+C     Which observation type to assimilate
+      assim_eta = .false.
+
 C     Observation error standard deviation
-      rms_obs = 0.10            ! This error is the standard deviation 
-                                ! for the Gaussian distribution 
+      rms_obs_eta = 0.10            ! This error is the standard deviation 
+                                    ! for the Gaussian distribution 
 
 C     Localization settings for LESTKF/LETKF
       locweight = 4             ! Type of localizating weighting
@@ -202,6 +208,9 @@ C     Localization settings for LESTKF/LETKF
       local_range = 50000.0     ! LOcalization radius 
       srange = local_range      ! Support radius for 5th-order polynomial
                     ! or range for 1/e for exponential weighting
+
+C     observation file name
+      eta_obsfile = ' '
 
 
 C     ***********************************

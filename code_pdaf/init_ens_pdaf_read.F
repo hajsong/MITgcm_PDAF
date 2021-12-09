@@ -69,8 +69,6 @@ C     *** Generate full ensemble on filter-PE 0 ***
       IF (mype_filter==0) THEN
          WRITE (*, '(/a, 9x, a)') 'PDAFuser: ',
      &        'Initialize state ensemble'
-         WRITE (*, '(a, 9x, a)') 'PDAFuser: ',
-     &        '--- read ensemble from files'
          WRITE (*, '(a, 9x, a, i5)') 'PDAFuser: ',
      &        '--- Ensemble size:  ', dim_ens
       END IF
@@ -79,6 +77,10 @@ C     ********************************
 C     *** Read ensemble from files ***
 C     ********************************
       IF (read_ens) THEN
+       IF (mype_filter==0) THEN
+         WRITE (*, '(a, 9x, a)') 'PDAFuser: ',
+     &        '--- read ensemble from files'
+       END IF
 C     Set model variables to initial/restart conditions
        DO member = 1, dim_ens
         IF ( startTime .EQ. baseTime .AND.  nIter0 .EQ. 0
@@ -305,7 +307,10 @@ C     ********************************
 C     *** Simply create ensemble   ***
 C     ********************************
       ELSE
-
+       IF (mype_filter==0) THEN
+         WRITE (*, '(a, 9x, a)') 'PDAFuser: ',
+     &        '--- create ensemble naively'
+       END IF
        CALL collect_state_pdaf(dim_p, state_p)
          
        DO member = 1, dim_ens
@@ -314,35 +319,6 @@ C     ********************************
 
       ENDIF
 
-CC     Write ensemble
-C      IF (write_ens) THEN
-C
-C         WRITE(suff,'(I10.10)') myIter
-C
-C         DO i=1,dim_ens
-CC           map back to geometric/geographic fields
-C            CALL distribute_state_pdaf(dim_p, ens_p(:,i))
-C
-C            WRITE(ensstr,'(I3.3)') i
-C            CALL WRITE_FLD_XY_RL('ETAN_'//ensstr//fcstanls,
-C     &           suff,etaN,myIter,myThid)
-C            CALL WRITE_FLD_XYZ_RL('THETA_'//ensstr//fcstanls,
-C     &           suff,theta,myIter,myThid)
-C            CALL WRITE_FLD_XYZ_RL('SALT_'//ensstr//fcstanls,
-C     &           suff,salt,myIter,myThid)
-C            CALL WRITE_FLD_XYZ_RL('UVEL_'//ensstr//fcstanls,
-C     &           suff,uvel,myIter,myThid)
-C            CALL WRITE_FLD_XYZ_RL('VVEL_'//ensstr//fcstanls,
-C     &           suff,vvel,myIter,myThid)
-C
-C
-C         ENDDO
-C      ENDIF
-
-
-
-
-      
 C     ****************
 C     *** clean up ***
 C     ****************

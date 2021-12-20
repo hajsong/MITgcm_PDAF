@@ -1,0 +1,1261 @@
+  PARSER: dim_ens=         4
+
+ Initialize communicators for assimilation with PDAF
+
+            Configuration of parallelization:
+   world   filter     model        couple     filterPE
+   rank     rank   task   rank   task   rank    T/F
+  -----------------------------------------------------
+     0       0      1      0      1      0       T
+
+ 
+     1              2      0      1      1       F
+     2              3      0      1      2       F
+     3              4      0      1      3       F
+
+PDAFuser: INITIALIZE PDAF - ONLINE MODE
+  PARSER: dim_ens=         4
+PDAFuser:      Global state dimension:    219600
+PDAFuser:      Local state dimension:     219600
+PDAFuser:                      Filter: ESTKF
+PDAFuser:       -- Standard mode
+PDAFuser:               ensemble size:    4
+PDAFuser:       Assimilation interval:   10
+PDAFuser:           forgetting factor: 1.00
+
+PDAF    ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+PDAF    +++                      PDAF                      +++
+PDAF    +++      Parallel Data Assimilation Framework      +++
+PDAF    +++                                                +++
+PDAF    +++                 Version 1.16                   +++
+PDAF    +++                                                +++
+PDAF    +++   Please cite Nerger and Hiller (2013) when    +++
+PDAF    +++   publishing work resulting from using PDAF    +++
+PDAF    ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+PDAF: Initialize filter
+
+PDAF    ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+PDAF    +++ Error Subspace Transform Kalman Filter (ESTKF) +++
+PDAF    +++                                                +++
+PDAF    +++  Nerger et al., Mon. Wea. Rev. 140 (2012) 2335 +++
+PDAF    +++           doi:10.1175/MWR-D-11-00102.1         +++
+PDAF    ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+PDAF    ESTKF configuration
+PDAF          filter sub-type = 0
+PDAF            --> Standard ESTKF with ensemble integration
+PDAF            --> Deterministic ensemble transformation
+PDAF            --> Use fixed forgetting factor: 1.00
+PDAF            --> ensemble size:    4
+
+PDAF: Initialize Parallelization
+PDAF     Parallelization - Filter on model PEs:
+PDAF                 Total number of PEs:      4
+PDAF      Number of parallel model tasks:      4
+PDAF                      PEs for Filter:      1
+PDAF     # PEs per ensemble task and local ensemble sizes: 
+PDAF     Task     1     2     3     4
+PDAF     #PEs     1     1     1     1
+PDAF        N     1     1     1     1
+
+PDAF: Call routine for ensemble initialization
+
+PDAFuser:          Initialize state ensemble
+PDAFuser:          --- read ensemble from files
+PDAFuser:          --- Ensemble size:      4
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   0.000000000000000E+000
+
+PDAF: Initialization completed
+PDAF     --- duration of PDAF initialization:     0.004 s
+
+
+PDAF ----------------------------------------------------------------
+PDAF                    +++++ ASSIMILATION +++++
+PDAF ----------------------------------------------------------------
+PDAF     Call pre-post routine at initial time
+PDAFuser:         Analize initial state ensemble
+PDAFuser:         --- compute ensemble mean
+PDAFuser:            RMS errors according to sampled variance: 
+PDAFuser:          etaN        theta       salt        uvel        vvel 
+PDAFuser:       1.2910E-02  1.2910E-02  1.2910E-02  1.2910E-02  1.2910E-02  RMSe-ini
+ RMSe_est:   1.290994448735770E-002  1.290994448736405E-002
+  1.290994448736412E-002  1.290994448736406E-002  1.290994448736406E-002
+PDAF     --- duration of prestep:     0.009 s
+PDAF Forecast -------------------------------------------------------
+PDAF     Evolve state ensemble
+PDAF     --- Distribute sub-ensembles
+PDAF     Perform assimilation with PDAF
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.24583243651874     
+PDAF     --- Gather sub-ensembles on filter task
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =  -0.800139690435838     
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.02295675440975     
+PDAF     --- duration of forecast phase:     0.335 s
+PDAF     Call pre-post routine after forecast; step      10
+PDAFuser:         Analize and write forecasted state ensemble
+PDAFuser:         --- compute ensemble mean
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =  -0.577399729966632     
+PDAFuser:            RMS errors according to sampled variance: 
+PDAFuser:          etaN        theta       salt        uvel        vvel 
+PDAFuser:       3.1531E-01  2.3831E-02  1.2980E-02  4.7590E-03  3.4253E-03  RMSe-for
+ RMSe_est:   0.315312954312746       2.383099142870173E-002
+  1.298004089054890E-002  4.759016886460619E-003  3.425290418498385E-003
+PDAF     --- duration of prestep:     0.009 s
+PDAF Analysis -------------------------------------------------------
+PDAF      10   Assimilating observations - ESTKF
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Initialize observations
+        Assimilate observations - OBS_sst
+PDAFomi     --- Use process-local observations for global filters
+PDAFomi        --- Number of full observations    3600
+ obs_op_pdafomi
+ state_p(299) =  -0.911582152832742     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =  -0.911582152832742     
+ state_p(299) =  -0.911582152832742     
+ ostate_p(299) =  -0.911582152832742     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =  -0.911582152832742     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.24583243651874     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.24583243651874     
+ state_p(299) =   -1.24583243651874     
+ ostate_p(299) =   -1.24583243651874     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.24583243651874     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.02295675440975     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.02295675440975     
+ state_p(299) =   -1.02295675440975     
+ ostate_p(299) =   -1.02295675440975     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.02295675440975     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =  -0.800139690435838     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =  -0.800139690435838     
+ state_p(299) =  -0.800139690435838     
+ ostate_p(299) =  -0.800139690435838     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =  -0.800139690435838     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =  -0.577399729966632     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =  -0.577399729966632     
+ state_p(299) =  -0.577399729966632     
+ ostate_p(299) =  -0.577399729966632     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =  -0.577399729966632     
+ dim_obs=        3600
+PDAF     Perform ensemble transformation
+PDAF     --- use symmetric square-root of A
+PDAF     --- Compute deterministic Omega
+PDAF     --- Ensemble update: use blocking with size   200
+PDAF     --- update duration:     0.018 s
+PDAF     Call pre-post routine after analysis step
+PDAFuser:         Analize and write assimilated state ensemble
+PDAFuser:         --- compute ensemble mean
+PDAFuser:            RMS errors according to sampled variance: 
+PDAFuser:          etaN        theta       salt        uvel        vvel 
+PDAFuser:       1.6644E-02  1.6609E-03  6.8860E-04  2.5125E-04  1.8085E-04  RMSe-ana
+ RMSe_est:   1.664356045271190E-002  1.660896971237476E-003
+  6.885976977701646E-004  2.512450316003066E-004  1.808519951742065E-004
+PDAF     --- duration of poststep:     0.007 s
+PDAF Forecast -------------------------------------------------------
+PDAF     Evolve state ensemble
+PDAF     --- Distribute sub-ensembles
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.11515532585615     
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.02159187684842     
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.20874769324716     
+PDAF     Perform assimilation with PDAF
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.30233964176477     
+PDAF     --- Gather sub-ensembles on filter task
+PDAF     --- duration of forecast phase:     0.332 s
+PDAF     Call pre-post routine after forecast; step      20
+PDAFuser:         Analize and write forecasted state ensemble
+PDAFuser:         --- compute ensemble mean
+PDAFuser:            RMS errors according to sampled variance: 
+PDAFuser:          etaN        theta       salt        uvel        vvel 
+PDAFuser:       2.6714E-01  1.3908E-02  1.6943E-03  5.9256E-03  2.8670E-03  RMSe-for
+ RMSe_est:   0.267144341858356       1.390809074895295E-002
+  1.694317332075606E-003  5.925610747933206E-003  2.866998718458607E-003
+PDAF     --- duration of prestep:     0.008 s
+PDAF Analysis -------------------------------------------------------
+PDAF      20   Assimilating observations - ESTKF
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Initialize observations
+        Assimilate observations - OBS_sst
+PDAFomi     --- Use process-local observations for global filters
+PDAFomi        --- Number of full observations    3600
+ obs_op_pdafomi
+ state_p(299) =   -1.16195863442912     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.16195863442912     
+ state_p(299) =   -1.16195863442912     
+ ostate_p(299) =   -1.16195863442912     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.16195863442912     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.30233964176477     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.30233964176477     
+ state_p(299) =   -1.30233964176477     
+ ostate_p(299) =   -1.30233964176477     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.30233964176477     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.20874769324716     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.20874769324716     
+ state_p(299) =   -1.20874769324716     
+ ostate_p(299) =   -1.20874769324716     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.20874769324716     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.11515532585615     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.11515532585615     
+ state_p(299) =   -1.11515532585615     
+ ostate_p(299) =   -1.11515532585615     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.11515532585615     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.02159187684842     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.02159187684842     
+ state_p(299) =   -1.02159187684842     
+ ostate_p(299) =   -1.02159187684842     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.02159187684842     
+ dim_obs=        3600
+PDAF     Perform ensemble transformation
+PDAF     --- use symmetric square-root of A
+PDAF     --- Compute deterministic Omega
+PDAF     --- Ensemble update: use blocking with size   200
+PDAF     --- update duration:     0.002 s
+PDAF     Call pre-post routine after analysis step
+PDAFuser:         Analize and write assimilated state ensemble
+PDAFuser:         --- compute ensemble mean
+PDAFuser:            RMS errors according to sampled variance: 
+PDAFuser:          etaN        theta       salt        uvel        vvel 
+PDAFuser:       1.6634E-02  1.6062E-03  1.8054E-04  3.6901E-04  1.7865E-04  RMSe-ana
+ RMSe_est:   1.663442168404154E-002  1.606160413931433E-003
+  1.805397541112797E-004  3.690149153920531E-004  1.786476764663367E-004
+PDAF     --- duration of poststep:     0.007 s
+PDAF Forecast -------------------------------------------------------
+PDAF     Evolve state ensemble
+PDAF     --- Distribute sub-ensembles
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.66739227091842     
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.51295136521567     
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.82178168090746     
+PDAF     Perform assimilation with PDAF
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.35844287273096     
+PDAF     --- Gather sub-ensembles on filter task
+PDAF     --- duration of forecast phase:     0.346 s
+PDAF     Call pre-post routine after forecast; step      30
+PDAFuser:         Analize and write forecasted state ensemble
+PDAFuser:         --- compute ensemble mean
+PDAFuser:            RMS errors according to sampled variance: 
+PDAFuser:          etaN        theta       salt        uvel        vvel 
+PDAFuser:       1.7121E-01  9.4711E-03  1.3061E-03  3.4245E-03  2.5816E-03  RMSe-for
+ RMSe_est:   0.171208657061104       9.471122299441801E-003
+  1.306087722101754E-003  3.424456658245847E-003  2.581574485009000E-003
+PDAF     --- duration of prestep:     0.009 s
+PDAF Analysis -------------------------------------------------------
+PDAF      30   Assimilating observations - ESTKF
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Initialize observations
+        Assimilate observations - OBS_sst
+PDAFomi     --- Use process-local observations for global filters
+PDAFomi        --- Number of full observations    3600
+ obs_op_pdafomi
+ state_p(299) =   -1.59014204744313     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.59014204744313     
+ state_p(299) =   -1.59014204744313     
+ ostate_p(299) =   -1.59014204744313     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.59014204744313     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.35844287273096     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.35844287273096     
+ state_p(299) =   -1.35844287273096     
+ ostate_p(299) =   -1.35844287273096     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.35844287273096     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.51295136521567     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.51295136521567     
+ state_p(299) =   -1.51295136521567     
+ ostate_p(299) =   -1.51295136521567     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.51295136521567     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.66739227091842     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.66739227091842     
+ state_p(299) =   -1.66739227091842     
+ ostate_p(299) =   -1.66739227091842     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.66739227091842     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.82178168090746     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.82178168090746     
+ state_p(299) =   -1.82178168090746     
+ ostate_p(299) =   -1.82178168090746     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.82178168090746     
+ dim_obs=        3600
+PDAF     Perform ensemble transformation
+PDAF     --- use symmetric square-root of A
+PDAF     --- Compute deterministic Omega
+PDAF     --- Ensemble update: use blocking with size   200
+PDAF     --- update duration:     0.002 s
+PDAF     Call pre-post routine after analysis step
+PDAFuser:         Analize and write assimilated state ensemble
+PDAFuser:         --- compute ensemble mean
+PDAFuser:            RMS errors according to sampled variance: 
+PDAFuser:          etaN        theta       salt        uvel        vvel 
+PDAFuser:       1.6588E-02  1.5744E-03  1.9341E-04  3.3185E-04  2.5026E-04  RMSe-ana
+ RMSe_est:   1.658836187060616E-002  1.574432056232085E-003
+  1.934134650948522E-004  3.318539170840393E-004  2.502616459313991E-004
+PDAF     --- duration of poststep:     0.007 s
+PDAF Forecast -------------------------------------------------------
+PDAF     Evolve state ensemble
+PDAF     --- Distribute sub-ensembles
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.52512096034388     
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.48797825384221     
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.56227461403862     
+PDAF     Perform assimilation with PDAF
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.45078884887648     
+PDAF     --- Gather sub-ensembles on filter task
+PDAF     --- duration of forecast phase:     0.325 s
+PDAF     Call pre-post routine after forecast; step      40
+PDAFuser:         Analize and write forecasted state ensemble
+PDAFuser:         --- compute ensemble mean
+PDAFuser:            RMS errors according to sampled variance: 
+PDAFuser:          etaN        theta       salt        uvel        vvel 
+PDAFuser:       1.9828E-01  1.0647E-02  1.2302E-03  3.4507E-03  2.6512E-03  RMSe-for
+ RMSe_est:   0.198279213488792       1.064682255495628E-002
+  1.230193411975928E-003  3.450720081162226E-003  2.651188601968164E-003
+PDAF     --- duration of prestep:     0.008 s
+PDAF Analysis -------------------------------------------------------
+PDAF      40   Assimilating observations - ESTKF
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Initialize observations
+        Assimilate observations - OBS_sst
+PDAFomi     --- Use process-local observations for global filters
+PDAFomi        --- Number of full observations    3600
+ obs_op_pdafomi
+ state_p(299) =   -1.50654066927530     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.50654066927530     
+ state_p(299) =   -1.50654066927530     
+ ostate_p(299) =   -1.50654066927530     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.50654066927530     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.45078884887648     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.45078884887648     
+ state_p(299) =   -1.45078884887648     
+ ostate_p(299) =   -1.45078884887648     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.45078884887648     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.48797825384221     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.48797825384221     
+ state_p(299) =   -1.48797825384221     
+ ostate_p(299) =   -1.48797825384221     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.48797825384221     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.52512096034388     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.52512096034388     
+ state_p(299) =   -1.52512096034388     
+ ostate_p(299) =   -1.52512096034388     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.52512096034388     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.56227461403862     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.56227461403862     
+ state_p(299) =   -1.56227461403862     
+ ostate_p(299) =   -1.56227461403862     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.56227461403862     
+ dim_obs=        3600
+PDAF     Perform ensemble transformation
+PDAF     --- use symmetric square-root of A
+PDAF     --- Compute deterministic Omega
+PDAF     --- Ensemble update: use blocking with size   200
+PDAF     --- update duration:     0.002 s
+PDAF     Call pre-post routine after analysis step
+PDAFuser:         Analize and write assimilated state ensemble
+PDAFuser:         --- compute ensemble mean
+PDAFuser:            RMS errors according to sampled variance: 
+PDAFuser:          etaN        theta       salt        uvel        vvel 
+PDAFuser:       1.6608E-02  1.5711E-03  1.9079E-04  2.8910E-04  2.2224E-04  RMSe-ana
+ RMSe_est:   1.660818263762759E-002  1.571070841871191E-003
+  1.907859021551123E-004  2.890990602156326E-004  2.222404107748947E-004
+PDAF     --- duration of poststep:     0.007 s
+PDAF Forecast -------------------------------------------------------
+PDAF     Evolve state ensemble
+PDAF     --- Distribute sub-ensembles
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.21587498533000     
+PDAF     Perform assimilation with PDAF
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.54435491287918     
+PDAF     --- Gather sub-ensembles on filter task
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.38014130766873     
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.05161129273150     
+PDAF     --- duration of forecast phase:     0.335 s
+PDAF     Call pre-post routine after forecast; step      50
+PDAFuser:         Analize and write forecasted state ensemble
+PDAFuser:         --- compute ensemble mean
+PDAFuser:            RMS errors according to sampled variance: 
+PDAFuser:          etaN        theta       salt        uvel        vvel 
+PDAFuser:       1.9709E-01  8.7882E-03  1.2483E-03  2.4642E-03  2.4557E-03  RMSe-for
+ RMSe_est:   0.197085933820590       8.788173488088738E-003
+  1.248299680092580E-003  2.464245349618990E-003  2.455720730394796E-003
+PDAF     --- duration of prestep:     0.008 s
+PDAF Analysis -------------------------------------------------------
+PDAF      50   Assimilating observations - ESTKF
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Initialize observations
+        Assimilate observations - OBS_sst
+PDAFomi     --- Use process-local observations for global filters
+PDAFomi        --- Number of full observations    3600
+ obs_op_pdafomi
+ state_p(299) =   -1.29799562465235     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.29799562465235     
+ state_p(299) =   -1.29799562465235     
+ ostate_p(299) =   -1.29799562465235     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.29799562465235     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.54435491287918     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.54435491287918     
+ state_p(299) =   -1.54435491287918     
+ ostate_p(299) =   -1.54435491287918     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.54435491287918     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.38014130766873     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.38014130766873     
+ state_p(299) =   -1.38014130766873     
+ ostate_p(299) =   -1.38014130766873     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.38014130766873     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.21587498533000     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.21587498533000     
+ state_p(299) =   -1.21587498533000     
+ ostate_p(299) =   -1.21587498533000     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.21587498533000     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.05161129273150     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.05161129273150     
+ state_p(299) =   -1.05161129273150     
+ ostate_p(299) =   -1.05161129273150     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.05161129273150     
+ dim_obs=        3600
+PDAF     Perform ensemble transformation
+PDAF     --- use symmetric square-root of A
+PDAF     --- Compute deterministic Omega
+PDAF     --- Ensemble update: use blocking with size   200
+PDAF     --- update duration:     0.002 s
+PDAF     Call pre-post routine after analysis step
+PDAFuser:         Analize and write assimilated state ensemble
+PDAFuser:         --- compute ensemble mean
+PDAFuser:            RMS errors according to sampled variance: 
+PDAFuser:          etaN        theta       salt        uvel        vvel 
+PDAFuser:       1.6607E-02  1.4230E-03  1.9184E-04  2.0771E-04  2.0708E-04  RMSe-ana
+ RMSe_est:   1.660744677423781E-002  1.423046625723613E-003
+  1.918372484556826E-004  2.077099001029384E-004  2.070822045144485E-004
+PDAF     --- duration of poststep:     0.007 s
+PDAF Forecast -------------------------------------------------------
+PDAF     Evolve state ensemble
+PDAF     --- Distribute sub-ensembles
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.44948377205013     
+PDAF     Perform assimilation with PDAF
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.55256618387131     
+PDAF     --- Gather sub-ensembles on filter task
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.50105593311002     
+PDAF     --- duration of forecast phase:     0.335 s
+PDAF     Call pre-post routine after forecast; step      60
+PDAFuser:         Analize and write forecasted state ensemble
+PDAFuser:         --- compute ensemble mean
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.39785354119402     
+PDAFuser:            RMS errors according to sampled variance: 
+PDAFuser:          etaN        theta       salt        uvel        vvel 
+PDAFuser:       1.5343E-01  9.4252E-03  1.1380E-03  2.6155E-03  2.1318E-03  RMSe-for
+ RMSe_est:   0.153432563930224       9.425198080276599E-003
+  1.137959535726136E-003  2.615548834900310E-003  2.131814640023696E-003
+PDAF     --- duration of prestep:     0.008 s
+PDAF Analysis -------------------------------------------------------
+PDAF      60   Assimilating observations - ESTKF
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Initialize observations
+        Assimilate observations - OBS_sst
+PDAFomi     --- Use process-local observations for global filters
+PDAFomi        --- Number of full observations    3600
+ obs_op_pdafomi
+ state_p(299) =   -1.47523985755637     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.47523985755637     
+ state_p(299) =   -1.47523985755637     
+ ostate_p(299) =   -1.47523985755637     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.47523985755637     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.55256618387131     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.55256618387131     
+ state_p(299) =   -1.55256618387131     
+ ostate_p(299) =   -1.55256618387131     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.55256618387131     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.50105593311002     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.50105593311002     
+ state_p(299) =   -1.50105593311002     
+ ostate_p(299) =   -1.50105593311002     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.50105593311002     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.44948377205013     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.44948377205013     
+ state_p(299) =   -1.44948377205013     
+ ostate_p(299) =   -1.44948377205013     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.44948377205013     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.39785354119402     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.39785354119402     
+ state_p(299) =   -1.39785354119402     
+ ostate_p(299) =   -1.39785354119402     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.39785354119402     
+ dim_obs=        3600
+PDAF     Perform ensemble transformation
+PDAF     --- use symmetric square-root of A
+PDAF     --- Compute deterministic Omega
+PDAF     --- Ensemble update: use blocking with size   200
+PDAF     --- update duration:     0.002 s
+PDAF     Call pre-post routine after analysis step
+PDAFuser:         Analize and write assimilated state ensemble
+PDAFuser:         --- compute ensemble mean
+PDAFuser:            RMS errors according to sampled variance: 
+PDAFuser:          etaN        theta       salt        uvel        vvel 
+PDAFuser:       1.6569E-02  1.8049E-03  2.8721E-04  2.8249E-04  2.3033E-04  RMSe-ana
+ RMSe_est:   1.656929687598315E-002  1.804914054410075E-003
+  2.872067149707286E-004  2.824855680887012E-004  2.303280643324071E-004
+PDAF     --- duration of poststep:     0.007 s
+PDAF Forecast -------------------------------------------------------
+PDAF     Evolve state ensemble
+PDAF     --- Distribute sub-ensembles
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.87807936720320     
+PDAF     Perform assimilation with PDAF
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.59699734512740     
+PDAF     --- Gather sub-ensembles on filter task
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -2.01853404216011     
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.73757471560792     
+PDAF     --- duration of forecast phase:     0.331 s
+PDAF     Call pre-post routine after forecast; step      70
+PDAFuser:         Analize and write forecasted state ensemble
+PDAFuser:         --- compute ensemble mean
+PDAFuser:            RMS errors according to sampled variance: 
+PDAFuser:          etaN        theta       salt        uvel        vvel 
+PDAFuser:       1.9862E-01  7.9595E-03  1.2039E-03  2.1025E-03  2.0204E-03  RMSe-for
+ RMSe_est:   0.198620677057292       7.959499207561071E-003
+  1.203946996385380E-003  2.102531619338837E-003  2.020410194144004E-003
+PDAF     --- duration of prestep:     0.008 s
+PDAF Analysis -------------------------------------------------------
+PDAF      70   Assimilating observations - ESTKF
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Initialize observations
+        Assimilate observations - OBS_sst
+PDAFomi     --- Use process-local observations for global filters
+PDAFomi        --- Number of full observations    3600
+ obs_op_pdafomi
+ state_p(299) =   -1.80779636752466     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.80779636752466     
+ state_p(299) =   -1.80779636752466     
+ ostate_p(299) =   -1.80779636752466     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.80779636752466     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.59699734512740     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.59699734512740     
+ state_p(299) =   -1.59699734512740     
+ ostate_p(299) =   -1.59699734512740     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.59699734512740     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.73757471560792     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.73757471560792     
+ state_p(299) =   -1.73757471560792     
+ ostate_p(299) =   -1.73757471560792     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.73757471560792     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.87807936720320     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.87807936720320     
+ state_p(299) =   -1.87807936720320     
+ ostate_p(299) =   -1.87807936720320     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.87807936720320     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -2.01853404216011     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -2.01853404216011     
+ state_p(299) =   -2.01853404216011     
+ ostate_p(299) =   -2.01853404216011     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -2.01853404216011     
+ dim_obs=        3600
+PDAF     Perform ensemble transformation
+PDAF     --- use symmetric square-root of A
+PDAF     --- Compute deterministic Omega
+PDAF     --- Ensemble update: use blocking with size   200
+PDAF     --- update duration:     0.002 s
+PDAF     Call pre-post routine after analysis step
+PDAFuser:         Analize and write assimilated state ensemble
+PDAFuser:         --- compute ensemble mean
+PDAFuser:            RMS errors according to sampled variance: 
+PDAFuser:          etaN        theta       salt        uvel        vvel 
+PDAFuser:       1.6608E-02  1.5059E-03  2.0420E-04  1.7586E-04  1.6909E-04  RMSe-ana
+ RMSe_est:   1.660837357978937E-002  1.505873158953653E-003
+  2.042024582555568E-004  1.758582346017453E-004  1.690872731487928E-004
+PDAF     --- duration of poststep:     0.007 s
+PDAF Forecast -------------------------------------------------------
+PDAF     Evolve state ensemble
+PDAF     --- Distribute sub-ensembles
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.68153559538012     
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.64805353300418     
+PDAF     Perform assimilation with PDAF
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.61448585849909     
+PDAF     --- Gather sub-ensembles on filter task
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.71499514931643     
+PDAF     --- duration of forecast phase:     0.331 s
+PDAF     Call pre-post routine after forecast; step      80
+PDAFuser:         Analize and write forecasted state ensemble
+PDAFuser:         --- compute ensemble mean
+PDAFuser:            RMS errors according to sampled variance: 
+PDAFuser:          etaN        theta       salt        uvel        vvel 
+PDAFuser:       1.4956E-01  8.3425E-03  1.0586E-03  2.0843E-03  2.0310E-03  RMSe-for
+ RMSe_est:   0.149564308946594       8.342537215618033E-003
+  1.058607912251889E-003  2.084324586343456E-003  2.030984852101434E-003
+PDAF     --- duration of prestep:     0.008 s
+PDAF Analysis -------------------------------------------------------
+PDAF      80   Assimilating observations - ESTKF
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Initialize observations
+        Assimilate observations - OBS_sst
+PDAFomi     --- Use process-local observations for global filters
+PDAFomi        --- Number of full observations    3600
+ obs_op_pdafomi
+ state_p(299) =   -1.66476753404995     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.66476753404995     
+ state_p(299) =   -1.66476753404995     
+ ostate_p(299) =   -1.66476753404995     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.66476753404995     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.61448585849909     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.61448585849909     
+ state_p(299) =   -1.61448585849909     
+ ostate_p(299) =   -1.61448585849909     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.61448585849909     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.64805353300418     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.64805353300418     
+ state_p(299) =   -1.64805353300418     
+ ostate_p(299) =   -1.64805353300418     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.64805353300418     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.68153559538012     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.68153559538012     
+ state_p(299) =   -1.68153559538012     
+ ostate_p(299) =   -1.68153559538012     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.68153559538012     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.71499514931643     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.71499514931643     
+ state_p(299) =   -1.71499514931643     
+ ostate_p(299) =   -1.71499514931643     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.71499514931643     
+ dim_obs=        3600
+PDAF     Perform ensemble transformation
+PDAF     --- use symmetric square-root of A
+PDAF     --- Compute deterministic Omega
+PDAF     --- Ensemble update: use blocking with size   200
+PDAF     --- update duration:     0.002 s
+PDAF     Call pre-post routine after analysis step
+PDAFuser:         Analize and write assimilated state ensemble
+PDAFuser:         --- compute ensemble mean
+PDAFuser:            RMS errors according to sampled variance: 
+PDAFuser:          etaN        theta       salt        uvel        vvel 
+PDAFuser:       1.6564E-02  1.8485E-03  2.2405E-04  2.3088E-04  2.2503E-04  RMSe-ana
+ RMSe_est:   1.656421554374978E-002  1.848511462077796E-003
+  2.240469463542736E-004  2.308835880319554E-004  2.250304564743776E-004
+PDAF     --- duration of poststep:     0.008 s
+PDAF Forecast -------------------------------------------------------
+PDAF     Evolve state ensemble
+PDAF     --- Distribute sub-ensembles
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.42755705968231     
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.54205827374058     
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.31300328995944     
+PDAF     Perform assimilation with PDAF
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.65646484941979     
+PDAF     --- Gather sub-ensembles on filter task
+PDAF     --- duration of forecast phase:     0.331 s
+PDAF     Call pre-post routine after forecast; step      90
+PDAFuser:         Analize and write forecasted state ensemble
+PDAFuser:         --- compute ensemble mean
+PDAFuser:            RMS errors according to sampled variance: 
+PDAFuser:          etaN        theta       salt        uvel        vvel 
+PDAFuser:       1.4696E-01  8.3325E-03  1.1540E-03  2.0397E-03  1.9116E-03  RMSe-for
+ RMSe_est:   0.146955450931752       8.332521601877431E-003
+  1.153951964199957E-003  2.039724864403306E-003  1.911607948074847E-003
+PDAF     --- duration of prestep:     0.009 s
+PDAF Analysis -------------------------------------------------------
+PDAF      90   Assimilating observations - ESTKF
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Initialize observations
+        Assimilate observations - OBS_sst
+PDAFomi     --- Use process-local observations for global filters
+PDAFomi        --- Number of full observations    3600
+ obs_op_pdafomi
+ state_p(299) =   -1.48477086820053     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.48477086820053     
+ state_p(299) =   -1.48477086820053     
+ ostate_p(299) =   -1.48477086820053     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.48477086820053     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.65646484941979     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.65646484941979     
+ state_p(299) =   -1.65646484941979     
+ ostate_p(299) =   -1.65646484941979     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.65646484941979     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.54205827374058     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.54205827374058     
+ state_p(299) =   -1.54205827374058     
+ ostate_p(299) =   -1.54205827374058     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.54205827374058     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.42755705968231     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.42755705968231     
+ state_p(299) =   -1.42755705968231     
+ ostate_p(299) =   -1.42755705968231     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.42755705968231     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.31300328995944     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.31300328995944     
+ state_p(299) =   -1.31300328995944     
+ ostate_p(299) =   -1.31300328995944     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.31300328995944     
+ dim_obs=        3600
+PDAF     Perform ensemble transformation
+PDAF     --- use symmetric square-root of A
+PDAF     --- Compute deterministic Omega
+PDAF     --- Ensemble update: use blocking with size   200
+PDAF     --- update duration:     0.002 s
+PDAF     Call pre-post routine after analysis step
+PDAFuser:         Analize and write assimilated state ensemble
+PDAFuser:         --- compute ensemble mean
+PDAFuser:            RMS errors according to sampled variance: 
+PDAFuser:          etaN        theta       salt        uvel        vvel 
+PDAFuser:       1.6561E-02  2.0193E-03  2.6217E-04  2.2991E-04  2.1552E-04  RMSe-ana
+ RMSe_est:   1.656058200416411E-002  2.019319213776708E-003
+  2.621661585004919E-004  2.299054322323986E-004  2.155225788418448E-004
+PDAF     --- duration of poststep:     0.007 s
+PDAF Forecast -------------------------------------------------------
+PDAF     Evolve state ensemble
+PDAF     --- Distribute sub-ensembles
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.59094711211243     
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.61645996772027     
+PDAF     Perform assimilation with PDAF
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.64188166899457     
+PDAF     --- Gather sub-ensembles on filter task
+PDAF     --- duration of forecast phase:     0.322 s
+PDAF     Call pre-post routine after forecast; step     100
+PDAFuser:         Analize and write forecasted state ensemble
+PDAFuser:         --- compute ensemble mean
+PDAFuser:            RMS errors according to sampled variance: 
+PDAFuser:          etaN        theta       salt        uvel        vvel 
+PDAFuser:       1.7333E-01  6.7357E-03  1.0652E-03  1.7046E-03  1.6501E-03  RMSe-for
+ RMSe_est:   0.173329502281287       6.735707351989327E-003
+  1.065244220778584E-003  1.704617916104252E-003  1.650099203568859E-003
+ KOFFSET ETA:         3600
+ KOFFSET THETA:        57600
+ KOFFSET SALT:       111600
+ KOFFSET UVEL:       165600
+ KOFFSET VVEL:       219600
+ state_p(299) =   -1.56538770430523     
+PDAF     --- duration of prestep:     0.008 s
+PDAF Analysis -------------------------------------------------------
+PDAF     100   Assimilating observations - ESTKF
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Initialize observations
+        Assimilate observations - OBS_sst
+PDAFomi     --- Use process-local observations for global filters
+PDAFomi        --- Number of full observations    3600
+ obs_op_pdafomi
+ state_p(299) =   -1.60366911328312     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.60366911328312     
+ state_p(299) =   -1.60366911328312     
+ ostate_p(299) =   -1.60366911328312     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.60366911328312     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.64188166899457     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.64188166899457     
+ state_p(299) =   -1.64188166899457     
+ ostate_p(299) =   -1.64188166899457     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.64188166899457     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.61645996772027     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.61645996772027     
+ state_p(299) =   -1.61645996772027     
+ ostate_p(299) =   -1.61645996772027     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.61645996772027     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.59094711211243     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.59094711211243     
+ state_p(299) =   -1.59094711211243     
+ ostate_p(299) =   -1.59094711211243     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.59094711211243     
+ dim_obs=        3600
+ obs_op_pdafomi
+ state_p(299) =   -1.56538770430523     
+ TEMPLATE init_TYPE_pdafomi_TEMPLATE.F90: Apply observation operator
+ before PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.56538770430523     
+ state_p(299) =   -1.56538770430523     
+ ostate_p(299) =   -1.56538770430523     
+ obs_op_sst is running
+ after PDAFomi_obs_op_gridpoint
+ state_p(299) =   -1.56538770430523     
+ dim_obs=        3600
+PDAF     Perform ensemble transformation
+PDAF     --- use symmetric square-root of A
+PDAF     --- Compute deterministic Omega
+PDAF     --- Ensemble update: use blocking with size   200
+PDAF     --- update duration:     0.002 s
+PDAF     Call pre-post routine after analysis step
+PDAFuser:         Analize and write assimilated state ensemble
+PDAFuser:         --- compute ensemble mean
+PDAFuser:            RMS errors according to sampled variance: 
+PDAFuser:          etaN        theta       salt        uvel        vvel 
+PDAFuser:       1.6590E-02  1.9647E-03  2.3801E-04  1.6323E-04  1.5808E-04  RMSe-ana
+ RMSe_est:   1.659023727231924E-002  1.964736189495544E-003
+  2.380063455541801E-004  1.632331932115947E-004  1.580760055009104E-004
+PDAFuser:     Assimilation with PDAF completed!
+PDAF     --- duration of poststep:     0.007 s
+PDAF Forecast -------------------------------------------------------
+PDAF     Evolve state ensemble
+PDAF     --- Distribute sub-ensembles
+
+
+PDAF            PDAF Timing information - call-back routines
+PDAF        ----------------------------------------------------
+PDAF          Initialize PDAF:                     0.004 s
+PDAF            init_ens_pdaf:                       0.004 s
+PDAF          Ensemble forecast:                   3.323 s
+PDAF            MPI communication in PDAF:           0.127 s
+PDAF            distribute_state_pdaf:               0.003 s
+PDAF            collect_state_pdaf:                  0.003 s
+PDAF          ESTKF analysis:                      0.035 s
+PDAF            PDAF-internal operations:            0.033 s
+PDAF            init_dim_obs_pdaf:                   0.001 s
+PDAF            obs_op_pdaf:                         0.001 s
+PDAF            init_obs_pdaf:                       0.000 s
+PDAF            prodRinvA_pdaf:                      0.000 s
+PDAF          prepoststep_pdaf:                    0.166 s
+
+PDAF                       PDAF Memory overview
+PDAF          ---------------------------------------------
+PDAF                     Allocated memory  (MiB)
+PDAF              state and A:      1.675 MiB (persistent)
+PDAF           ensemble array:      6.702 MiB (persistent)
+PDAF            analysis step:      1.984 MiB (temporary)
+PDAFuser:     Assimilation with PDAF completed!
+PDAFuser:     Assimilation with PDAF completed!
+PDAFuser:     Assimilation with PDAF completed!

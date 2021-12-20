@@ -1,0 +1,14 @@
+# Namelist file for PDAF configuration
+&pdaf_nml
+ screen = 2, 
+ filtertype = 6, 
+ subtype = 0, 
+ nsteps_between_obs = 30, 
+ forget = 1.0, 
+ locweight = 4, 
+ local_range = 50000.0,
+ write_ens = .TRUE.,
+ read_ens = .FALSE.,
+ assim_eta = .TRUE.,
+ eta_obsfile = 'Eta_obs',
+/

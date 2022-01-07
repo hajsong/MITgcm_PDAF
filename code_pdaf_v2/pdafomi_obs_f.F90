@@ -701,8 +701,8 @@ CONTAINS
 ! *** Arguments ***
     TYPE(obs_f), INTENT(inout) :: thisobs !< Data type with full observation
     INTEGER, INTENT(in) :: ncols          !< Number of columns in A_p and C_p
-    REAL, INTENT(in) :: A_p(:, :)         !< Input matrix (nobs_f, ncols)
-    REAL, INTENT(out)   :: C_p(:, :)      !< Output matrix (nobs_f, ncols)
+    REAL(kind=8), INTENT(in) :: A_p(:, :)         !< Input matrix (nobs_f, ncols)
+    REAL(kind=8), INTENT(out)   :: C_p(:, :)      !< Output matrix (nobs_f, ncols)
 
 
 ! *** local variables ***

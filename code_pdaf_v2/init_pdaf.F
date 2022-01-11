@@ -36,7 +36,7 @@ C     Variables for assimilation
      &     filtertype, subtype, dim_ens, iter_null,
      &     nsteps_between_obs, type_forget, forget,
      &     locweight, local_range, srange, type_trans, type_sqrt,
-     &     myIter, myThid, MyTime, write_ens,
+     &     myIter, myThid, MyTime, write_ens, read_ens,
      &     n_fields, id, off_fields_p, dim_fields_p, dim_fields
       USE obs_etan_pdafomi,
      &      ONLY: assim_etan, rms_obs_etan
@@ -78,7 +78,7 @@ C     Namelist for PDAF settings
       NAMELIST /pdaf_nml/ screen, filtertype, subtype,
      &     iter_null, nsteps_between_obs,
      &     type_forget, forget, type_trans, type_sqrt,
-     &     locweight, local_range, srange, write_ens,
+     &     locweight, local_range, srange, read_ens, write_ens,
      &     assim_etan, rms_obs_etan
 
 
@@ -231,6 +231,9 @@ C     *********************************************************************
 
 C     Forecast length
       nsteps_between_obs = 10   ! Number of time steps between analysis/assimilation steps
+
+C     Whether to read full ensemble files
+      read_ens = .false.
 
 C     Whether to write full ensemble files
       write_ens = .false.

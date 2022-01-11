@@ -24,7 +24,7 @@ C     !USES:
      &     ONLY: screen, filtertype, subtype, dim_ens,
      &     type_trans, type_sqrt, nsteps_between_obs,
      &     type_forget, forget,
-     &     locweight, local_range, srange, write_ens
+     &     locweight, local_range, srange, read_ens, write_ens
       USE obs_etan_pdafomi,     ! Variables for SSH observations
      &     ONLY: assim_etan, rms_obs_etan
 
@@ -80,6 +80,9 @@ C     Settings for localization in LSEIK/LETKF
       handle = 'srange'                  ! Set support range in grid points
 C             ! for 5th-order polynomial or range for 1/e in exponential weighting
       CALL parse(handle, srange)
+
+      handle = 'read_ens'                ! Whether to read ensmeble files
+      CALL parse(handle, read_ens)
 
       handle = 'write_ens'               ! Whether to write ensmeble files
       CALL parse(handle, write_ens)

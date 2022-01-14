@@ -38,22 +38,21 @@
 
 # Time stepping parameters
  &PARM03
- nIter0=      0,
- nTimeSteps = 100,
+ nIter0=        0,
+ nTimeSteps = 120,
 # 100 years of integration will yield a reasonable flow field
 # startTime =          0.,
 # endTime   = 3110400000.,
 # endTime   = 31104000.,
  deltaTmom = 1800.,
  tauCD =     321428.,
- deltaTtracer= 86400.,
- deltaTClock = 86400.,
- deltaTfreesurf= 86400.,
+ deltaTtracer= 43200.,
+ deltaTClock = 43200.,
+ deltaTfreesurf= 43200.,
  abEps = 0.1,
- pChkptFreq= 864000.,
- dumpFreq=   864000.,
- taveFreq=   864000.,
- monitorFreq=1.,
+ pChkptFreq= 2592000.,
+ dumpFreq=   2592000.,
+ monitorFreq=10.,
 # 2 months restoring timescale for temperature
 # tauThetaClimRelax=  5184000.,
 # 6 months restoring timescale for salinity
@@ -77,6 +76,7 @@
 # Input datasets
  &PARM05
  bathyFile=      'bathymetry.bin',
+ pSurfInitFile=  'eta_ini.bin',
  hydrogThetaFile='lev_t.bin',
  hydrogSaltFile= 'lev_s.bin',
  zonalWindFile=  'trenberth_taux.bin',

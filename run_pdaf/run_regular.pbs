@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#PBS -l nodes=4:ppn=4,walltime=12:00:00
+#PBS -l nodes=1:ppn=4,walltime=12:00:00
 #PBS -q batch
 #PBS -V
 #PBS -N pdaf_test
@@ -16,7 +16,7 @@ export MPI_INC_DIR="/usr/local/mpi/intel18/openmpi-3.1.6/include/"
 export LD_LIBRARY_PATH="/usr/local/netcdf/461_intel18/lib/"
 
 #-- Fundamental run information
-runD="/home/hajsong/PDAF/tutorial_global_oce_latlon_v1.16_omi_hj/run_pdaf"
+runD="/home/hajsong/PDAF/tutorial_global_oce_latlon_v2/run_pdaf"
 
 cd $runD
 

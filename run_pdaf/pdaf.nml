@@ -1,13 +1,14 @@
 # Namelist file for PDAF configuration
 &pdaf_nml
  screen = 2, 
- filtertype = 7, 
+ filtertype = 4, 
  subtype = 0, 
  nsteps_between_obs = 10, 
- forget = 1, 
+ forget = 1.0, 
  locweight = 4, 
  local_range = 50000.0,
- write_ens = .FALSE.,
+ write_ens = .TRUE.,
+ read_ens = .FALSE.,
  assim_etan = .TRUE.,
- rms_obs_etan = 0.1,
+ rms_obs_etan = 0.5,
 /

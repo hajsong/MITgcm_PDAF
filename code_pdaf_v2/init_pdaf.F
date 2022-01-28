@@ -39,7 +39,7 @@ C     Variables for assimilation
      &     myIter, myThid, MyTime, write_ens, read_ens,
      &     n_fields, id, off_fields_p, dim_fields_p, dim_fields
       USE obs_etan_pdafomi,
-     &      ONLY: assim_etan, rms_obs_etan
+     &      ONLY: assim_etan, rms_obs_etan, etan_obsfile
 
       IMPLICIT NONE
 
@@ -79,7 +79,7 @@ C     Namelist for PDAF settings
      &     iter_null, nsteps_between_obs,
      &     type_forget, forget, type_trans, type_sqrt,
      &     locweight, local_range, srange, read_ens, write_ens,
-     &     assim_etan, rms_obs_etan
+     &     assim_etan, rms_obs_etan, etan_obsfile
 
 
 C     *** Store information from MITgcm to be used in call-back routines ***
@@ -240,6 +240,9 @@ C     Whether to write full ensemble files
 
 C     Observation error standard deviation
       rms_obs_etan = 0.10       ! For sea surface height etan
+
+C     Observation file name
+      etan_obsfile = ' '
 
 C     Localization settings for LESTKF/LETKF
       locweight = 4             ! Type of localizating weighting

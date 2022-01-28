@@ -42,6 +42,9 @@ C     It is available here only for convenience and can be used freely.
       REAL*8, INTENT(out)   :: ens_p(dim_p, dim_ens)     ! PE-local state ensemble
       INTEGER, INTENT(inout) :: flag                     ! PDAF status flag
 
+C Functions
+      INTEGER ILNBLNK,IFNBLNK
+
 C     !CALLING SEQUENCE:
 C     Called by: PDAF_filter_init    (as U_ens_init)
 
@@ -56,9 +59,9 @@ C     Called by: PDAF_filter_init    (as U_ens_init)
 C     *** local variables ***
       INTEGER :: i, j, k, bi, bj, member  ! Counters
       INTEGER :: localWarnings
-      REAL*8 :: Tfreezing
+      INTEGER :: s1Lo,s1Hi,s2Lo,s2Hi
       CHARACTER(len=4) :: ensstr          ! String for ensemble member
-      CHARACTER*(MAX_LEN_MBUF) msgBuf
+      CHARACTER*(MAX_LEN_MBUF) msgBuf, fn
 
 C     i,j,k  :: Loop counters
 C     bi,bj  :: tile indices
@@ -91,7 +94,10 @@ C     Set model variables to initial/restart conditions
         IF ( startTime .EQ. baseTime .AND.  nIter0 .EQ. 0
      &     .AND. pickupSuff .EQ. ' ' ) THEN
          WRITE(ensstr,'(A,I3.3)') '_',member
-         CALL INI_PSURF_ENS( myThid, ensstr )
+         s1Lo = IFNBLNK(pSurfInitFile)
+         s1Hi = ILNBLNK(pSurfInitFile)
+         WRITE( fn, '(A,A)' ) pSurfInitFile(s1Lo:s1Hi),ensstr
+         CALL INI_PSURF_FN( myThid, fn )
          CALL INI_THETA_ENS( myThid, ensstr )
          CALL INI_SALT_ENS( myThid, ensstr )
          CALL INI_VEL_ENS( myThid, ensstr )

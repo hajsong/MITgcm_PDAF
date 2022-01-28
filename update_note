@@ -1,0 +1,7 @@
+    Notes on the updates for PDAF/MITgcm
+    ====================================
+
+2022/01/29
+o code_pdaf_v2/obs_etan_pdafomi.F
+  - bug fix at l213
+    ALLOCATE(obs_field(sNy, sNx)) => ALLOCATE(obs_field(sNx, sNy))

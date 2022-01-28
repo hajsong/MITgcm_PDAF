@@ -60,6 +60,7 @@ C     ! * Later revisions - see repository log
 C     ! Variables which are inputs to the module (usually set in init_pdaf)
       LOGICAL       :: assim_etan        !< Whether to assimilate this data type
       REAL(kind=8)  :: rms_obs_etan      !< Observation error standard deviation (for constant errors)
+      CHARACTER(len=32) :: etan_obsfile  ! observation file name
 
 C     ! One can declare further variables, e.g. for file names which can
 C     ! be use-included in init_pdaf() and initialized there.
@@ -158,7 +159,8 @@ C     !
 
       USE PDAFomi, ONLY: PDAFomi_gather_obs
       USE mod_assimilation,
-     &     ONLY: filtertype, local_range, id, off_fields_p
+     &     ONLY: filtertype, local_range, id, off_fields_p,
+     &     myIter, myThid
 
       IMPLICIT NONE
 
@@ -168,17 +170,22 @@ C     !*** Arguments ***
 
 #include "SIZE.h"
 #include "GRID.h"
+#include "DYNVARS.h"
 #include "EEPARAMS.h"
 
 C     !*** Local variables ***
       INTEGER :: i, j                              ! Counters
       INTEGER :: cnt, cnt0                         ! Counters
       INTEGER :: dim_obs_p                         ! Number of process-local observations
+      INTEGER :: ILNBLNK
+      INTEGER :: IL
       REAL(kind=8), ALLOCATABLE :: obs_field(:,:)  ! Observation field read from file
       REAL(kind=8), ALLOCATABLE :: obs_p(:)        ! PE-local observation vector
       REAL(kind=8), ALLOCATABLE :: ivar_obs_p(:)   ! PE-local inverse observation error variance
       REAL(kind=8), ALLOCATABLE :: ocoord_p(:,:)   ! PE-local observation coordinates
-
+      CHARACTER(len=11) :: suffix                  ! observation file name
+      CHARACTER*(MAX_LEN_FNAM) fn                  ! observation file name
+      LOGICAL exst
 
 C     !*********************************************
 C     !*** Initialize full observation dimension ***
@@ -203,10 +210,27 @@ C     !*** Read PE-local observations ***
 C     !**********************************
 
 C     ! Read observation field from file
-      ALLOCATE(obs_field(sNy, sNx))
+      ALLOCATE(obs_field(sNx, sNy))
 
-      ! Here, we just set a value
-      obs_field = 0.5d0
+      IF ( etan_obsfile .NE. ' ' ) THEN
+       IL  = ILNBLNK( etan_obsfile )
+       WRITE(fn,'(2A,I10.10)') etan_obsfile(1:IL), '.', myIter
+       IL = ILNBLNK( fn )
+       INQUIRE( file=fn, exist=exst )
+       IF (exst) THEN
+        print *,'existing file: ',fn(1:IL)
+        CALL INI_PSURF_fn( myThid, fn )
+        DO j = myYGlobalLo, myYGlobalLo + sNy - 1
+         DO i = myXGlobalLo, myXGlobalLo + sNx - 1
+          obs_field(i,j) = etaN(i,j,1,1)
+         ENDDO
+        ENDDO
+C        obs_field(:,:) = etaN(:,:,1,1)
+       ENDIF
+      ELSE
+       ! Here, we just set a value
+       obs_field = 0.5d0
+      ENDIF
 
 
 C     !***********************************************************

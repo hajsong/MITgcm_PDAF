@@ -1,4 +1,4 @@
-# PDAF + MITgcm
+# MITgcm + PDAF
 
 This repository contains files that enable PDAF in MITgcm.
 

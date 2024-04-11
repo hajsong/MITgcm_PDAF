@@ -1,1 +1,0 @@
-/home/hajsong/MITgcm/pkg/mdsio/mdsio_seg8tors.F

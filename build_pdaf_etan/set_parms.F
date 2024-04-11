@@ -1,1 +1,0 @@
-/home/hajsong/MITgcm/model/src/set_parms.F

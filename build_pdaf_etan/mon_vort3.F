@@ -1,1 +1,0 @@
-/home/hajsong/MITgcm/pkg/monitor/mon_vort3.F

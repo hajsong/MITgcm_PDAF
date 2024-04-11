@@ -1,1 +1,0 @@
-/home/hajsong/MITgcm/pkg/mom_fluxform/mom_u_metric_sphere.F

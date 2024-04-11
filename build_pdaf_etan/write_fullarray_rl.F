@@ -1,1 +1,0 @@
-/home/hajsong/MITgcm/pkg/debug/write_fullarray_rl.F

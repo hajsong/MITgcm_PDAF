@@ -1,1 +1,0 @@
-/home/hajsong/MITgcm/model/src/config_check.F

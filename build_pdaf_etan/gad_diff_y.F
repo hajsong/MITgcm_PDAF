@@ -1,1 +1,0 @@
-/home/hajsong/MITgcm/pkg/generic_advdiff/gad_diff_y.F

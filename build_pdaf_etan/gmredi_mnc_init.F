@@ -1,1 +1,0 @@
-/home/hajsong/MITgcm/pkg/gmredi/gmredi_mnc_init.F

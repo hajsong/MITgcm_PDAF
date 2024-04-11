@@ -1,1 +1,0 @@
-/home/hajsong/MITgcm/model/src/write_state.F

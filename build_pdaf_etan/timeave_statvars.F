@@ -1,1 +1,0 @@
-/home/hajsong/MITgcm/pkg/timeave/timeave_statvars.F

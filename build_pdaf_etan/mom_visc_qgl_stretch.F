@@ -1,1 +1,0 @@
-/home/hajsong/MITgcm/pkg/mom_common/mom_visc_qgl_stretch.F

@@ -209,8 +209,8 @@ C     !*** Read PE-local observations ***
 C     !**********************************
 
 C     ! Read observation field from file
-      ALLOCATE(obs_field(Ny, Nx))
-      ALLOCATE(obs_buffer(Nx*Ny))
+      ALLOCATE(obs_field(sNx,sNy))
+      ALLOCATE(obs_buffer(sNx*sNy))
 
       ! Here, we just set a value
       IF ( etan_obsFile .NE. ' ' ) THEN
@@ -219,22 +219,22 @@ C     ! Read observation field from file
        INQUIRE( file=etan_obsFile, exist=exst )
        IF (exst) THEN
         IF (readBinaryPrec .EQ. precFloat32) THEN
-         length_of_rec = Nx*Ny*WORDLENGTH
+         length_of_rec = sNx*sNy*WORDLENGTH
         ELSEIF (readBinaryPrec .EQ. precFloat64) THEN
-         length_of_rec = Nx*Ny*WORDLENGTH*2
+         length_of_rec = sNx*sNy*WORDLENGTH*2
         ENDIF
         OPEN( dUnit, file=etan_obsFile, status='old', _READONLY_ACTION
      &       access='direct', recl=length_of_rec )
 C        irec = 1 + k-kLo + (irecord-1)*nNz
         irec = 1 
         IF (readBinaryPrec .EQ. precFloat32) THEN
-         READ(dUnit,rec=irec) ( obs_buffer(cnt),cnt=1,Nx*Ny )
+         READ(dUnit,rec=irec) ( obs_buffer(cnt),cnt=1,sNx*sNy )
         ELSE
-         READ(dUnit,rec=irec) ( obs_buffer(cnt),cnt=1,Nx*Ny )
+         READ(dUnit,rec=irec) ( obs_buffer(cnt),cnt=1,sNx*sNy )
         ENDIF
         cnt=1
-        DO j=1,Ny
-         DO i=1,Nx
+        DO j=1,sNy
+         DO i=1,sNx
           obs_field(i,j) = obs_buffer(cnt)
           cnt = cnt+1
          ENDDO

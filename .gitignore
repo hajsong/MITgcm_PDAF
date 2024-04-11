@@ -6,7 +6,6 @@ build*/*.f
 build*/*.F
 
 # ignore model output files
-
-*.data
-*.meta
+run*/*.data
+run*/*.meta
 

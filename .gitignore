@@ -3,4 +3,5 @@ build*/*.o
 build*/*.h
 build*/*.mod
 build*/*.f
+build*/*.F
 

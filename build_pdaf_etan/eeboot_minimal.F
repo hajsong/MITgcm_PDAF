@@ -1,0 +1,1 @@
+/home/hajsong/MITgcm/eesupp/src/eeboot_minimal.F

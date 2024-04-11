@@ -1,0 +1,1 @@
+/home/hajsong/MITgcm/pkg/gmredi/gmredi_calc_urms.F

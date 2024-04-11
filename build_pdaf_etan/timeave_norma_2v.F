@@ -1,0 +1,1 @@
+/home/hajsong/MITgcm/pkg/timeave/timeave_norma_2v.F

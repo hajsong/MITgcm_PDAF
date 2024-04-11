@@ -1,0 +1,6 @@
+# ignore ALL files from compilation
+build*/*.o
+build*/*.h
+build*/*.mod
+build*/*.f
+

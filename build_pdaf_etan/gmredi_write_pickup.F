@@ -1,0 +1,1 @@
+/home/hajsong/MITgcm/pkg/gmredi/gmredi_write_pickup.F

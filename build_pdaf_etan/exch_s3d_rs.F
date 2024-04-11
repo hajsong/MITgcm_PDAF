@@ -1,0 +1,1 @@
+/home/hajsong/MITgcm/eesupp/src/exch_s3d_rs.F

@@ -1,0 +1,1 @@
+/home/hajsong/MITgcm/pkg/generic_advdiff/gad_c2_adv_r.F

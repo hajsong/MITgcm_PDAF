@@ -5,3 +5,6 @@
 o code_pdaf_v2/obs_etan_pdafomi.F
   - bug fix at l213
     ALLOCATE(obs_field(sNy, sNx)) => ALLOCATE(obs_field(sNx, sNy))
+
+2024/04/11
+o Revisit the project and made some progress

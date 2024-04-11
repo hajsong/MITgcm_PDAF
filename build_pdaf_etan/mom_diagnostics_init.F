@@ -1,0 +1,1 @@
+/home/hajsong/MITgcm/pkg/mom_common/mom_diagnostics_init.F

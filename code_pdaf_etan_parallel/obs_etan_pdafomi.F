@@ -159,7 +159,7 @@ C     !
 
       USE PDAFomi, ONLY: PDAFomi_gather_obs
       USE mod_assimilation,
-     &     ONLY: filtertype, cradius, id, off_fields
+     &     ONLY: filtertype, cradius, id, off_fields_p
 
       IMPLICIT NONE
 
@@ -176,7 +176,7 @@ C     !*** Local variables ***
       INTEGER :: i, j                              ! Counters
       INTEGER :: cnt, cnt0                         ! Counters
       INTEGER :: dim_obs_p                         ! Number of process-local observations
-      INTEGER :: length_of_rec, dUnit, irec                     
+      INTEGER :: length_of_rec, dUnit, irec
       LOGICAL :: useCurrentDir, exst
       REAL(kind=4), ALLOCATABLE :: obs_field(:,:)  ! Observation field read from file
       REAL(kind=4), ALLOCATABLE :: obs_buffer(:)   ! 1D observation
@@ -184,7 +184,7 @@ C     !*** Local variables ***
       REAL(kind=8), ALLOCATABLE :: ivar_obs_p(:)   ! PE-local inverse observation error variance
       REAL(kind=8), ALLOCATABLE :: ocoord_p(:,:)   ! PE-local observation coordinates
 
-      useCurrentDir = .FALSE.
+
 C     !*********************************************
 C     !*** Initialize full observation dimension ***
 C     !*********************************************
@@ -211,7 +211,7 @@ C     ! Read observation field from file
       ALLOCATE(obs_field(Nx,Ny))
       ALLOCATE(obs_buffer(Nx*Ny))
 
-      ! Here, we just set a value
+      ! Read observation from the file 
       IF ( etan_obsFile .NE. ' ' ) THEN
        print *,'read etan_obsFile: ', etan_obsFile
        print *,'step : ', step
@@ -225,7 +225,7 @@ C     ! Read observation field from file
         OPEN( dUnit, file=etan_obsFile, status='old', _READONLY_ACTION
      &       access='direct', recl=length_of_rec )
 C        irec = 1 + k-kLo + (irecord-1)*nNz
-        irec = 1 
+        irec = 1
         IF (readBinaryPrec .EQ. precFloat32) THEN
          READ(dUnit,rec=irec) ( obs_buffer(cnt),cnt=1,Nx*Ny )
         ELSE
@@ -241,7 +241,11 @@ C        irec = 1 + k-kLo + (irecord-1)*nNz
         CLOSE( dUnit )
        ENDIF
        print *,'done reading etan_obsFile: ', etan_obsFile
+      ELSE
+      ! Here, we just set a value
+       obs_field = 0.5d0
       ENDIF
+
 
 C     !***********************************************************
 C     !*** Count available observations for the process domain ***
@@ -250,11 +254,13 @@ C     !***********************************************************
 
 C     ! *** Count valid observations that lie within the process sub-domain ***
 
+      print *,'myYGlobalLo : ',myYGlobalLo
+      print *,'myXGlobalLo : ',myXGlobalLo
       cnt = 0
-      DO j = 1, sNy
-        DO i= 1, sNx
-          IF (obs_field(i,j) > -999.0) cnt = cnt + 1
-        END DO
+      DO j = myYGlobalLo, myYGlobalLo + sNy - 1
+         DO i = myXGlobalLo, myXGlobalLo + sNx - 1
+            IF (obs_field(i,j) > -999.0) cnt = cnt + 1
+         END DO
       END DO
       dim_obs_p = cnt
       dim_obs = cnt
@@ -276,20 +282,22 @@ C     ! This array has a many rows as required for the observation operator
 C     ! 1 if observations are at grid points; >1 if interpolation is required
       ALLOCATE(thisobs%id_obs_p(1, dim_obs_p))
 
-        cnt = 0
-        cnt0 = 0
-        DO j = 1, sNy
-          DO i= 1, sNx
+      cnt = 0
+      cnt0 = 0
+      DO j = myYGlobalLo, myYGlobalLo + sNy - 1
+         DO i = myXGlobalLo, myXGlobalLo + sNx - 1
             cnt0 = cnt0 + 1
             IF (obs_field(i,j) > -999.0) THEN
-              cnt = cnt + 1
-              thisobs%id_obs_p(1, cnt) = cnt0 + off_fields(id%etan)
-              obs_p(cnt) = obs_field(i, j)
-              ocoord_p(1, cnt) = xC(i, j, 1, 1)
-              ocoord_p(2, cnt) = yC(i, j, 1, 1)
+               cnt = cnt + 1
+               thisobs%id_obs_p(1, cnt) = cnt0 + off_fields_p(id%etan)
+               obs_p(cnt) = obs_field(i, j)
+               ocoord_p(1, cnt)
+     &              = xC(i-myXGlobalLo+1, j-myYGlobalLo+1, 1, 1)
+               ocoord_p(2, cnt)
+     &              = yC(i-myXGlobalLo+1, j-myYGlobalLo+1, 1, 1)
             END IF
-          END DO
-        END DO
+         END DO
+      END DO
 
 
 C     !****************************************************************
@@ -323,7 +331,7 @@ C     !*** Finishing up ***
 C     !********************
 
 C     ! Deallocate all local arrays
-      DEALLOCATE(obs_field, obs_buffer)
+      DEALLOCATE(obs_field)
       DEALLOCATE(obs_p, ocoord_p, ivar_obs_p)
 
       END

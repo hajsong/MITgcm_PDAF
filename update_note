@@ -1,5 +1,5 @@
-    Notes on the updates for PDAF/MITgcm
-    ====================================
+Notes on the updates for PDAF/MITgcm
+====================================
 
 2022/01/29
 o code_pdaf_v2/obs_etan_pdafomi.F
@@ -8,3 +8,10 @@ o code_pdaf_v2/obs_etan_pdafomi.F
 
 2024/04/11
 o Revisit the project and made some progress
+
+
+
+===========
+To-do list
+===========
+o Read observation file using "myThid" -> Then I can use the subroutine in MITgcm to read the file.

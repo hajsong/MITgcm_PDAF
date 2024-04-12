@@ -324,7 +324,7 @@ C     !*** Finishing up ***
 C     !********************
 
 C     ! Deallocate all local arrays
-C      DEALLOCATE(obs_field)
+      DEALLOCATE(obs_field, obs_buffer)
       DEALLOCATE(obs_p, ocoord_p, ivar_obs_p)
 
       END

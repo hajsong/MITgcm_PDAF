@@ -169,6 +169,9 @@ C     SEIK-subtype4/LSEIK-subtype4/ESTKF/LESTKF
       INTEGER :: type_sqrt     ! Type of the transform matrix square-root
                     !   (0) symmetric square root, (1) Cholesky decomposition
 
+C     File input - available as a command line option
+      LOGICAL :: read_ens   ! Whether to read full ensemble from files
+
 C     File output - available as a command line option
       LOGICAL :: write_ens   ! Whether to write full ensemble into files
 

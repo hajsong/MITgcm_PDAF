@@ -177,7 +177,6 @@ C     !*** Local variables ***
       INTEGER :: cnt, cnt0                         ! Counters
       INTEGER :: dim_obs_p                         ! Number of process-local observations
       INTEGER :: length_of_rec, dUnit, irec
-      LOGICAL :: useCurrentDir, exst
       REAL(kind=4), ALLOCATABLE :: obs_field(:,:)  ! Observation field read from file
       REAL(kind=4), ALLOCATABLE :: obs_buffer(:)   ! 1D observation
       REAL(kind=8), ALLOCATABLE :: obs_p(:)        ! PE-local observation vector
@@ -215,31 +214,28 @@ C     ! Read observation field from file
       IF ( etan_obsFile .NE. ' ' ) THEN
        print *,'read etan_obsFile: ', etan_obsFile
        print *,'step : ', step
-       INQUIRE( file=etan_obsFile, exist=exst )
-       IF (exst) THEN
-        IF (readBinaryPrec .EQ. precFloat32) THEN
-         length_of_rec = Nx*Ny*WORDLENGTH
-        ELSEIF (readBinaryPrec .EQ. precFloat64) THEN
-         length_of_rec = Nx*Ny*WORDLENGTH*2
-        ENDIF
-        OPEN( dUnit, file=etan_obsFile, status='old', _READONLY_ACTION
-     &       access='direct', recl=length_of_rec )
-C        irec = 1 + k-kLo + (irecord-1)*nNz
-        irec = 1
-        IF (readBinaryPrec .EQ. precFloat32) THEN
-         READ(dUnit,rec=irec) ( obs_buffer(cnt),cnt=1,Nx*Ny )
-        ELSE
-         READ(dUnit,rec=irec) ( obs_buffer(cnt),cnt=1,Nx*Ny )
-        ENDIF
-        cnt=1
-        DO j=1,Ny
-         DO i=1,Nx
-          obs_field(i,j) = obs_buffer(cnt)
-          cnt = cnt+1
-         ENDDO
-        ENDDO
-        CLOSE( dUnit )
+       IF (readBinaryPrec .EQ. precFloat32) THEN
+        length_of_rec = Nx*Ny*WORDLENGTH
+       ELSEIF (readBinaryPrec .EQ. precFloat64) THEN
+        length_of_rec = Nx*Ny*WORDLENGTH*2
        ENDIF
+       OPEN( dUnit, file=etan_obsFile, status='old', _READONLY_ACTION
+     &      access='direct', recl=length_of_rec )
+C       irec = 1 + k-kLo + (irecord-1)*nNz
+       irec = 1
+       IF (readBinaryPrec .EQ. precFloat32) THEN
+        READ(dUnit,rec=irec) ( obs_buffer(cnt),cnt=1,Nx*Ny )
+       ELSE
+        READ(dUnit,rec=irec) ( obs_buffer(cnt),cnt=1,Nx*Ny )
+       ENDIF
+       cnt=1
+       DO j=1,Ny
+        DO i=1,Nx
+         obs_field(i,j) = obs_buffer(cnt)
+         cnt = cnt+1
+        ENDDO
+       ENDDO
+       CLOSE( dUnit )
        print *,'done reading etan_obsFile: ', etan_obsFile
       ELSE
       ! Here, we just set a value

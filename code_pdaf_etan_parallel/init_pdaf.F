@@ -36,7 +36,7 @@ C     Variables for assimilation
      &     filtertype, subtype, dim_ens, iter_null,
      &     nsteps_between_obs, type_forget, forget,
      &     locweight, cradius, sradius, type_trans, type_sqrt,
-     &     myIter, myThid, MyTime, write_ens,
+     &     myIter, myThid, MyTime, read_ens, write_ens,
      &     n_fields, id, off_fields_p, dim_fields_p, dim_fields
       USE obs_etan_pdafomi,
      &      ONLY: assim_etan, rms_obs_etan, etan_obsFile
@@ -78,7 +78,7 @@ C     Namelist for PDAF settings
       NAMELIST /pdaf_nml/ screen, filtertype, subtype,
      &     iter_null, nsteps_between_obs,
      &     type_forget, forget, type_trans, type_sqrt,
-     &     locweight, cradius, sradius, write_ens,
+     &     locweight, cradius, sradius, read_ens, write_ens,
      &     assim_etan, rms_obs_etan, etan_obsFile
 
 
@@ -155,7 +155,7 @@ C     *** IO options ***
 
 C     *** Filter specific variables
       filtertype = 7            ! Type of filter
-                    !   SEIK (1), EnKF (2), LSEIK (3), ETKF (4), LETKF (5)
+                    !   SEEK (0), SEIK (1), EnKF (2), LSEIK (3), ETKF (4), LETKF (5)
                     !   ESTKF (6), LESTKF (7), LEnKF (8), NETF (9), LNETF (10), PF (12)
       subtype = 0               ! subtype of filter:
                           !   SEIK:
@@ -232,6 +232,9 @@ C     *********************************************************************
 C     Forecast length
       nsteps_between_obs = 10   ! Number of time steps between analysis/assimilation steps
 
+C     Whether to read full ensemble files
+      read_ens = .false.
+
 C     Whether to write full ensemble files
       write_ens = .false.
 
@@ -259,7 +262,7 @@ C     ***********************************
 
 C     *** Read namelist file for PDAF ***
 
-      OPEN (500,file='pdaf.nml')
+      OPEN (500,file='data.pdaf')
       READ (500,NML=pdaf_nml)
       CLOSE (500)
 

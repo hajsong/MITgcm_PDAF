@@ -15,6 +15,8 @@ C     initializes the ensemble for the PE-local domain.
 C
 C     !REVISION HISTORY:
 C     2013-02 - Lars Nerger - Initial code
+C     2022-01 - Hajoon Song - Add an ability to read initial ensemble
+C                             from files
 C     Later revisions - see svn log
 C
 C     !INTERFACE:
@@ -24,6 +26,8 @@ C     !INTERFACE:
 C     !USES:
       USE mod_parallel_pdaf,
      &     ONLY: mype_filter
+      USE mod_assimilation,
+     &     ONLY: myThid, read_ens
 
       IMPLICIT NONE
 
@@ -37,17 +41,24 @@ C     It is available here only for convenience and can be used freely.
       REAL*8, INTENT(inout) :: Uinv(dim_ens-1,dim_ens-1) ! Array not referenced for SEIK
       REAL*8, INTENT(out)   :: ens_p(dim_p, dim_ens)     ! PE-local state ensemble
       INTEGER, INTENT(inout) :: flag                     ! PDAF status flag
+C Functions
+      INTEGER ILNBLNK,IFNBLNK
 
 C     !CALLING SEQUENCE:
 C     Called by: PDAF_filter_init    (as U_init_ens)
 
-
 #include "CPP_OPTIONS.h"
 #include "SIZE.h"
 #include "DYNVARS.h"
+#include "EEPARAMS.h"
+#include "PARAMS.h"
 
 C     *** local variables ***
-      INTEGER :: member  ! Counters
+      INTEGER :: i, j, k, bi, bj, member  ! Counters
+      INTEGER :: localWarnings
+      INTEGER :: s1Lo,s1Hi,s2Lo,s2Hi
+      CHARACTER(len=5) :: ensstr          ! String for ensemble member
+      CHARACTER*(MAX_LEN_MBUF) msgBuf
 
 
 C     **********************
@@ -64,20 +75,47 @@ C     *** Generate full ensemble on filter-PE 0 ***
      &        '--- Ensemble size:  ', dim_ens
       END IF
 
-
 C     ********************************
 C     *** Read ensemble from files ***
 C     ********************************
+      IF (read_ens) THEN
+       IF (mype_filter==0) THEN
+         WRITE (*, '(a, 9x, a)') 'PDAFuser: ',
+     &        '--- read ensemble from files'
+       END IF
+C     Set model variables to initial/restart conditions
+       DO member = 1, dim_ens
+        IF ( startTime .EQ. baseTime .AND.  nIter0 .EQ. 0
+     &     .AND. pickupSuff .EQ. ' ' ) THEN
+         WRITE(ensstr,'(A,I4.4)') '_',member
+         CALL INI_PSURF_ENS( myThid, ensstr )
+         CALL INI_THETA_ENS( myThid, ensstr )
+         CALL INI_SALT_ENS( myThid, ensstr )
+         CALL INI_VEL_ENS( myThid, ensstr )
 
-      ! This is a very simplified ensemble initialization
-      ! just using a scale according to the ensemble member
-      ! index. This will not work with real cases.
-      CALL collect_state_pdaf(dim_p, state_p)
+C      Or Read pickup files
+        ELSEIF ( .NOT.useOffLine .OR. nonlinFreeSurf.GT.0 ) THEN
+         CALL READ_PICKUP( nIter0, myThid )
+        ENDIF
 
-      DO member = 1, dim_ens
-         ens_p(:, member)  = state_p(:) + float(member-1)*1.d-2
-      ENDDO
+        CALL collect_state_pdaf(dim_p, state_p)
+        ens_p(:, member)  = state_p(:)
+       ENDDO
+C     ********************************
+C     *** Simply create ensemble   ***
+C     ********************************
+      ELSE
+       IF (mype_filter==0) THEN
+         WRITE (*, '(a, 9x, a)') 'PDAFuser: ',
+     &        '--- create ensemble naively'
+       END IF
+       CALL collect_state_pdaf(dim_p, state_p)
 
+       DO member = 1, dim_ens
+          ens_p(:, member)  = state_p(:) + float(member-1)*1.d-2
+       ENDDO
+
+      ENDIF
 
 C     ****************
 C     *** clean up ***

@@ -24,7 +24,7 @@ C     !USES:
      &     ONLY: screen, filtertype, subtype, dim_ens,
      &     type_trans, type_sqrt, nsteps_between_obs,
      &     type_forget, forget,
-     &     locweight, cradius, sradius, write_ens
+     &     locweight, cradius, sradius, write_ens, read_ens
       USE obs_etan_pdafomi,     ! Variables for SSH observations
      &     ONLY: assim_etan, rms_obs_etan
 
@@ -83,5 +83,8 @@ C             ! for 5th-order polynomial or radius for 1/e in exponential weight
 
       handle = 'write_ens'               ! Whether to write ensmeble files
       CALL parse(handle, write_ens)
+
+      handle = 'read_ens'                ! Whether to read ensmeble files
+      CALL parse(handle, read_ens)
 
       END SUBROUTINE init_pdaf_parse

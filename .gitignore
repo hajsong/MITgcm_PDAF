@@ -5,7 +5,3 @@ build*/*.mod
 build*/*.f
 build*/*.F
 
-# ignore model output files
-run*/*.data
-run*/*.meta
-
